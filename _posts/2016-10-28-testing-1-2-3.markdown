@@ -1,0 +1,8 @@
+---
+published: false
+title: Testing 1 2 3
+layout: post
+---
+Using tinypress.co
+
+It is so simple.
