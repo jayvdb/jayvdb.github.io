@@ -123,15 +123,21 @@
         return false;
       };
 
-      // a default style is good practice!
-      var defaultStyle = new ol.style.Style({
-        fill: new ol.style.Fill({
-          color: [250,250,250,1]
-        }),
-        stroke: new ol.style.Stroke({
+      border_black = new ol.style.Stroke({
+          color: 'black',
+          width: 1
+      });
+      border_white = new ol.style.Stroke({
           color: [220,220,220,1],
           width: 1
-        })
+      });
+
+      // a default style is good practice!
+      var defaultStyle = new ol.style.Style({
+        /*fill: new ol.style.Fill({
+          color: [250,250,250,1]
+        }),*/
+        stroke: border_black
       });
 
       var yellow = new ol.style.Style({
@@ -197,24 +203,31 @@
       // Return null to hide the feature.
       function styleFunctionEthnologueStatus(feature, resolution) {
         // get the incomeLevel from the feature properties
+        status_style = defaultStyle;
+
         var status = feature.get('Ethnologue_status');
         // if there is no level or its one we don't recognize,
         // return the default style (in an array!)
-        if (!status) {
-          return [defaultStyle];
-        }
         if (status == '6a') {
-          return [yellow];
+          status_style = yellow;
         }
         else if (status == '6b') {
-          return [dull_blue];
+          status_style = dull_blue;
         }
         else if (status == 3) {
-          return [dull_green];
+          status_style = dull_green;
         }
-        else {
-          return [defaultStyle];
+
+        var desa = feature.get('DESA');
+        if (desa) {
+            return [
+                new ol.style.Style({
+                    fill: status_style.fill,
+                    stroke: border_black
+                })
+            ];
         }
+        return [status_style];
       }
 
 
