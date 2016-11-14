@@ -300,6 +300,7 @@
             qid = features[i].get('qid');
             desa_code = features[i].get('desa');
             language_qids = features[i].get('language_qids');
+            iso_code = features[i].get('iso_639_3_code');
             language_names = features[i].get('language_names');
             status = features[i].get('language_status');
             s = info.join(', ') + '<br><br>';
@@ -309,6 +310,9 @@
                     language_qid = language_qids[i];
                     language_name = language_names[i];
                     language_html += '<li><a href="https://www.wikidata.org/wiki/Q' + language_qid + '">' + language_name + '</a>';
+                    if (iso_code) {
+                        language_html += ' (<a href="http://www-01.sil.org/iso639-3/documentation.asp?id=' + iso_code + '">' + iso_code + '</a>)';
+                    }
                 }
             }
             s += 'Languages: <ul>'+ language_html + '</ul><br>';
